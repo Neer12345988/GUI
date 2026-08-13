@@ -5,6 +5,8 @@ root = Tk()
 root.geometry("850x300")
 root.config(background="#000000")
 
+choices = ["rock", "paper", "scissors"]
+
 player_score = 0
 computer_score = 0
 
@@ -28,9 +30,38 @@ def tie():
     player_score_lbl.config(text=f"Your score: {player_score}")
     computer_score_lbl.config(text=f"My score: {computer_score}")
 
+def computer_choice():
+    return random.choice(choices)
+
+def player_choice(player_input):
+    global player_score, computer_score
+    print(player_input)
+    player_choice_lbl.config(text=f"You chose: {player_input}")
+    computer_input = computer_choice()
+    print(computer_input)
+    computer_choice_lbl.config(text=f"I chose: {computer_input}")
+
+    if player_input == computer_input:
+        tie()
+    if player_input == "rock":
+        if computer_input == "scissors":
+            player_wins()
+        elif computer_input == "paper":
+            computer_wins()
+    if player_input == "paper":
+        if computer_input == "rock":
+            player_wins()
+        elif computer_input == "scissors":
+            computer_wins()
+    if player_input == "scissors":
+        if computer_input == "paper":
+            player_wins()
+        elif computer_input == "rock":
+            computer_wins()
+
 heading_lbl = Label(root, text="ROCK, PAPER, SCISSORS SHOOTOUT", bg="#000000", fg="#b00d0d", font=("Constantia", 20, "bold"))
 heading_lbl.pack()
-winner_lbl = Label(root, text="Let the games begin", bg = "#000000", fg="#b00d0d", font=("Constantia", 15, "bold"))
+winner_lbl = Label(root, text="PREPARE TO DIE", bg = "#000000", fg="#b00d0d", font=("Constantia", 15, "bold"))
 winner_lbl.pack()
 
 frame = Frame(root, bg="#000000")
@@ -39,11 +70,11 @@ frame.pack()
 player_options = Label(frame, text="Available weapons:", bg="#000000", fg="#089cf2", font=("Constantia", 14, "bold"))
 player_options.grid(row=0, column=0, pady=8)
 
-rock_btn = Button(frame, text="ROCK", width=15, bg="#4f554a", fg="#000000", font=("Constantia", 14, "bold"))
+rock_btn = Button(frame, text="ROCK", width=15, bg="#4f554a", fg="#000000", font=("Constantia", 14, "bold"), command=lambda: player_choice(choices[0]))
 rock_btn.grid(row=1, column=1, padx=8, pady=5)
-paper_btn = Button(frame, text="PAPER", width=15, bg="#eef3eb", fg="#000000", font=("Constantia", 14, "bold"))
+paper_btn = Button(frame, text="PAPER", width=15, bg="#eef3eb", fg="#000000", font=("Constantia", 14, "bold"), command=lambda: player_choice(choices[1]))
 paper_btn.grid(row=1, column=2, padx=8, pady=5)
-scissors_btn = Button(frame, text="SCISSORS", width=15, bg="#ff0000", fg="#000000", font=("Constantia", 14, "bold"))
+scissors_btn = Button(frame, text="SCISSORS", width=15, bg="#ff0000", fg="#000000", font=("Constantia", 14, "bold"), command=lambda: player_choice(choices[2]))
 scissors_btn.grid(row=1, column=3, padx=8, pady=5)
 
 score_lbl = Label(frame, text="Score: ", bg="#000000", fg="#089cf2", font=("Constantia", 14, "bold"))
