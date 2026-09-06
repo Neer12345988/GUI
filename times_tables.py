@@ -1,6 +1,14 @@
 from tkinter import *
 from tkinter import ttk
 
+def table():
+    calculation = ""
+    for i in range(1, endVal.get() + 1):
+        prod = num.get() * i
+        calculation += f"{num.get()} x {i} = {prod} \n"
+
+    display_lbl.configure(text=calculation)
+
 root = Tk()
 root.config(background="#0000ff")
 
@@ -26,8 +34,10 @@ r30 = Radiobutton(root, text="30", variable=endVal, value=30, bg="#0000ff", fg="
 r30.grid(row=3, column=2)
 endVal.set(10)
 
-generate_btn = Button(root, text="GENERATE", bg="#999999", fg="#000000", font=("Arial", 10, "bold"), width=12)
+generate_btn = Button(root, text="GENERATE", bg="#999999", fg="#000000", font=("Arial", 10, "bold"), width=12, command=table)
 generate_btn.grid(row=4, column=0, columnspan=2)
 
+display_lbl = Label(root, text="", bg="#0000ff", fg="#787878", font=("Arial", 10, "bold"))
+display_lbl.grid(row=5, column=0, pady=25)
 
 root.mainloop()
